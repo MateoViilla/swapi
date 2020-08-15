@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./layouts/films/films.module').then(m => m.FilmsModule)
   },
   {
-    path: 'characters',
+    path: 'characters/:id',
     loadChildren: () => import('./layouts/characters/characters.module').then(m => m.CharactersModule)
   },
 ];
