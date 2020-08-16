@@ -1,1 +1,64 @@
-<p>characters-list works!</p>
+<div class="mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="loading">
+    <img src="https://media.giphy.com/media/2UCCiILkXaLbDbrjll/giphy.gif" alt="gif">
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-icon>face</mat-icon>
+        Name
+      </th>
+      <td mat-cell *matCellDef="let character"> {{character.name}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="eye_color">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon>remove_red_eye</mat-icon>
+        Eye Color
+      </th>
+      <td mat-cell *matCellDef="let character"> {{character.eye_color}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon>sentiment_satisfied_alt</mat-icon>
+        Gender
+      </th>
+      <td mat-cell *matCellDef="let character"> {{character.gender}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="films">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Films
+      </th>
+      <td mat-cell *matCellDef="let character">
+        <button mat-stroked-button> Films </button></td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let character" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="character == expandedElement ? 'expanded' : 'collapsed'">
+
+          <mat-list>
+            <div mat-subheader>Films</div>
+            <mat-list-item class="example-element-description" *ngFor="let film of character.filmsItem">
+              <mat-icon mat-list-icon>movie_filter</mat-icon>
+              <div (click)="showOpeningCrawlText(film)" mat-line>{{film.title}}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+</div>

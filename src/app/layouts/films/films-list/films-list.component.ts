@@ -1,9 +1,10 @@
+import { SnackBarService } from './../../../services/snackbar/snack-bar.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Film } from './../../../models/film.model';
 import { FilmsService } from './../../../services/films/films.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-films-list',
@@ -20,6 +21,7 @@ export class FilmsListComponent implements OnInit {
   constructor(
     private filmsService: FilmsService,
     private router: Router,
+    private snackBarService: SnackBarService,
     ) { }
 
   ngOnInit(): void {
@@ -35,9 +37,11 @@ export class FilmsListComponent implements OnInit {
   }
 
   openCharacter(film: Film) {
-    console.log(film);
-
     this.router.navigate(['characters', film.episode_id ]);
+  }
+
+  showOpeningCrawlText(film: Film): void {
+    this.snackBarService.showSnack(film.opening_crawl);
   }
 }
 

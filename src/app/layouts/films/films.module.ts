@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     FilmsRoutingModule,
     MaterialModule,
-    HttpClientModule
   ]
 })
 export class FilmsModule { }
