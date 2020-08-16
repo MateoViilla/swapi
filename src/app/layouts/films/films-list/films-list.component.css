@@ -1,9 +1,9 @@
-.example-container {
+.container {
   position: relative;
   min-height: 200px;
 }
 
-.example-table-container {
+.table-container {
   position: relative;
   max-height: 400px;
   overflow: auto;
@@ -13,7 +13,7 @@ table {
   width: 100%;
 }
 
-.example-loading-shade {
+.loading-shade {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,19 +26,9 @@ table {
   justify-content: center;
 }
 
-.example-rate-limit-reached {
-  color: #980000;
-  max-width: 360px;
-  text-align: center;
-}
-
 .mat-column-number,
 .mat-column-state {
   max-width: 64px;
-}
-
-.mat-column-created {
-  max-width: 124px;
 }
 
 a,
