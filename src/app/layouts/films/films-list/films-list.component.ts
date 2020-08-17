@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Film } from './../../../models/film.model';
 import { FilmsService } from './../../../services/films/films.service';
-import { SnackBarService } from '../../../core/services/snackbar/snack-bar.service';
+import { AlertService } from '../../../core/services/alert/alert.service';
 
 @Component({
   selector: 'app-films-list',
@@ -28,7 +28,7 @@ export class FilmsListComponent implements OnInit, OnDestroy {
   constructor(
     private filmsService: FilmsService,
     private router: Router,
-    private snackBarService: SnackBarService,
+    private alertService: AlertService,
     private loaderService: LoaderService,
     ) { }
 
@@ -59,7 +59,7 @@ export class FilmsListComponent implements OnInit, OnDestroy {
   }
 
   showOpeningCrawlText(film: Film): void {
-    this.snackBarService.showSnack(film.opening_crawl);
+    this.alertService.showSnack(film.opening_crawl);
   }
 
   ngOnDestroy(): void {

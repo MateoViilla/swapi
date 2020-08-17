@@ -11,7 +11,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Character } from 'src/app/models/character.model';
 import { Film } from './../../../models/film.model';
 import { CharactersService } from './../../../services/characters/characters.service';
-import { SnackBarService } from '../../../core/services/snackbar/snack-bar.service';
+import { AlertService } from 'src/app/core/services/alert/alert.service';
+
 @Component({
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
@@ -39,7 +40,7 @@ export class CharactersListComponent implements OnInit, OnDestroy {
   constructor(
     private charactersService: CharactersService,
     protected route: ActivatedRoute,
-    private snackBarService: SnackBarService,
+    private alertService: AlertService,
     private loaderService: LoaderService,
   ) { }
 
@@ -68,7 +69,7 @@ export class CharactersListComponent implements OnInit, OnDestroy {
   }
 
   showOpeningCrawlText(film: Film): void {
-    this.snackBarService.showSnack(film.opening_crawl);
+    this.alertService.showSnack(film.opening_crawl);
   }
 
   ngOnDestroy(): void {

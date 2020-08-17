@@ -1,4 +1,4 @@
-import { SnackBarService } from './../../services/snackbar/snack-bar.service';
+import { AlertService } from './../../services/alert/alert.service';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -14,7 +14,7 @@ import { catchError } from 'rxjs/operators';
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private snackBarService: SnackBarService
+    private alertService: AlertService
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
 
         const message = error.message.toString();
-        this.snackBarService.showError(message);
+        this.alertService.showError(message);
 
         return throwError(error);
       })
