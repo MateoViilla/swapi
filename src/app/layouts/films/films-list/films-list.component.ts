@@ -1,4 +1,4 @@
-import { LoaderState } from '../../../models/loader.model';
+import { LoaderState } from '../../../shared/models/loader.model';
 import { LoaderService } from './../../../core/services/loader/loader.service';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Film } from './../../../models/film.model';
+import { Film } from './../../../shared/models/film.model';
 import { FilmsService } from './../../../services/films/films.service';
 import { AlertService } from '../../../core/services/alert/alert.service';
 

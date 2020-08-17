@@ -1,5 +1,4 @@
-import { LoaderState } from '../../../models/loader.model';
-import { LoaderService } from './../../../core/services/loader/loader.service';
+import { LoaderState } from './../../../shared/models/loader.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,10 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Character } from 'src/app/models/character.model';
-import { Film } from './../../../models/film.model';
-import { CharactersService } from './../../../services/characters/characters.service';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
+import { LoaderService } from './../../../core/services/loader/loader.service';
+import { CharactersService } from './../../../services/characters/characters.service';
+import { Character } from './../../../shared/models/character.model';
+import { Film } from './../../../shared/models/film.model';
 
 @Component({
   selector: 'app-characters-list',
