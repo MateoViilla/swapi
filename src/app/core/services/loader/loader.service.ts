@@ -1,6 +1,6 @@
-import { LoaderState } from './../../../shared/models/loader.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LoaderState } from './../../../shared/models/loader.model';
 @Injectable({
   providedIn: 'root'
 })

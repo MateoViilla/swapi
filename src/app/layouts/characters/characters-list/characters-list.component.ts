@@ -1,4 +1,4 @@
-import { LoaderState } from './../../../shared/models/loader.model';
+import { LoaderState } from '../../../models/loader.model';
 import { LoaderService } from './../../../core/services/loader/loader.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
