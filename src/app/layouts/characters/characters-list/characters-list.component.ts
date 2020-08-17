@@ -1,61 +1,77 @@
-import { SnackBarService } from './../../../services/snackbar/snack-bar.service';
-import { Film } from './../../../models/film.model';
-import { MatSort } from '@angular/material/sort';
-import { CharactersService } from './../../../services/characters/characters.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Character } from 'src/app/models/character.model';
-import { MatTableDataSource } from '@angular/material/table';
+import { LoaderState } from './../../../shared/models/loader.model';
+import { LoaderService } from './../../../core/services/loader/loader.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Character } from 'src/app/models/character.model';
+import { Film } from './../../../models/film.model';
+import { CharactersService } from './../../../services/characters/characters.service';
+import { SnackBarService } from '../../../core/services/snackbar/snack-bar.service';
 @Component({
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
   styleUrls: ['./characters-list.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class CharactersListComponent implements OnInit {
+export class CharactersListComponent implements OnInit, OnDestroy {
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public dataSource: MatTableDataSource<Character>;
   public displayedColumns: string[] = ['name', 'eye_color', 'gender', 'films'];
 
+  onComplete$ = new Subject();
   expandedElement: Character | null;
-  loading = true;
+  show: boolean;
 
   constructor(
     private charactersService: CharactersService,
     protected route: ActivatedRoute,
-    private snackBarService: SnackBarService
-    ) { }
+    private snackBarService: SnackBarService,
+    private loaderService: LoaderService,
+  ) { }
 
   ngOnInit(): void {
+    this.showLoader();
     this.getAllCharacters();
+  }
+
+  private showLoader() {
+    this.loaderService.loaderState
+    .pipe(takeUntil(this.onComplete$))
+    .subscribe((status: LoaderState) => {
+        this.show = status.show;
+      });
   }
 
   getAllCharacters(): void {
     const filmId = this.route.snapshot.paramMap.get('id');
     this.charactersService.getFilmCharacters(filmId)
-      .subscribe(
-        (characters: Character[]) => {
+      .pipe(takeUntil(this.onComplete$))
+      .subscribe((characters: Character[]) => {
         this.dataSource = new MatTableDataSource(characters);
-        this.loading = false;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-      }
-      );
+      });
   }
 
   showOpeningCrawlText(film: Film): void {
     this.snackBarService.showSnack(film.opening_crawl);
+  }
+
+  ngOnDestroy(): void {
+    this.onComplete$.complete();
   }
 }

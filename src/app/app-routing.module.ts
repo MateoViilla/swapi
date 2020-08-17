@@ -16,6 +16,11 @@ const routes: Routes = [
     path: 'characters/:id',
     loadChildren: () => import('./layouts/characters/characters.module').then(m => m.CharactersModule)
   },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'films'
+  },
 ];
 
 @NgModule({

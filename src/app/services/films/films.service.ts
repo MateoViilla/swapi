@@ -1,9 +1,9 @@
+import { ApiGateway } from './../../core/constants/api-gateway';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { FilmsResponse } from './../../models/film.model';
-import { ApiGateway } from './../../shared/constants/api-gateway';
 
 @Injectable({
   providedIn: 'root'

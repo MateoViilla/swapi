@@ -1,11 +1,14 @@
 <mat-toolbar class="toolbar" role="banner">
-  <mat-toolbar-row fxLayout="row" fxLayoutAlign="center center">
-    <img id="star-wars-logo" fxFlex='5' alt="STAR WARS"
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <img width="100px" fxFlex='5' alt="STAR WARS"
     src="../assets/logo.png">
-    <button fxFlex mat-button routerLink="/films">Films</button>
+    <div fxFlex>
+      <button  mat-button routerLink="/films">Films</button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="content" role="main">
   <router-outlet></router-outlet>
+
 </div>
